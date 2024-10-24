@@ -5,62 +5,61 @@ import {
   getUserByIdService,
   loginUserService,
 } from "../services/userService";
-import { UserRegisterDTO, UserLoginDTO, UserDTO } from "../dtos/UserDTO";
-import { User } from "../interFaces/UserInterface";
+import {
+  UserRegisterDTO,
+  UserLoginDTO,
+  UserDTO,
+  UserCredentialDTO,
+} from "../dtos/UserDTO";
+import { User } from "../entities/User.entity";
 
-export const getUsersController = async (
+import { catchingErrors } from "../utils/catchingErrors";
+
+const getUsersController = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  try {
-    const serviceResponse: UserDTO[] = await getUserService();
-    res
-      .status(200)
-      .json({ message: "Users loaded successfully", data: serviceResponse });
-  } catch (error) {
-    res.status(500).json({ message: "Users not loaded", error: error });
-  }
+  const serviceResponse: UserDTO[] = await getUserService();
+  res
+    .status(200)
+    .json({ message: "Users loaded successfully", data: serviceResponse });
 };
 
-export const getUserByIdController = async (
+const getUserByIdController = async (
   req: Request<{ id: string }>,
   res: Response
 ): Promise<void> => {
   const { id } = req.params;
-  try {
-    const serviceResponse: UserDTO = await getUserByIdService(id);
-    res
-      .status(200)
-      .json({ message: "User loaded successfully", data: serviceResponse });
-  } catch (error) {
-    res.status(500).json({ message: "User not created", error: error });
-  }
+
+  const serviceResponse: UserDTO = await getUserByIdService(id);
+  res
+    .status(200)
+    .json({ message: "User loaded successfully", data: serviceResponse });
 };
 
-export const registrerUserController = async (
+const registrerUserController = async (
   req: Request<unknown, unknown, UserRegisterDTO>,
   res: Response
 ): Promise<void> => {
-  try {
-    const serviceResponse: User = await registerUserService(req.body);
-    res
-      .status(200)
-      .json({ message: "User created successfully", data: serviceResponse });
-  } catch (error) {
-    res.status(500).json({ message: "User not created", error: error });
-  }
+  const serviceResponse: User = await registerUserService(req.body);
+  res
+    .status(201)
+    .json({ message: "User created successfully", data: serviceResponse });
 };
 
-export const loginUserController = async (
-  req: Request<unknown, unknown, UserLoginDTO>,
+const loginUserController = async (
+  req: Request<unknown, unknown, UserCredentialDTO>,
   res: Response
 ): Promise<void> => {
-  try {
-    const serviceResponse: UserLoginDTO = await loginUserService(req.body);
-    res
-      .status(200)
-      .json({ message: "User logged in successfully", data: serviceResponse });
-  } catch (error) {
-    res.status(500).json({ message: "User not logged in", error: error });
-  }
+  const serviceResponse: UserLoginDTO = await loginUserService(req.body);
+  res.status(200).json({ data: serviceResponse });
 };
+
+const userControllers = {
+  getUsersController: catchingErrors(getUsersController),
+  getUserByIdController: catchingErrors(getUserByIdController),
+  registrerUserController: catchingErrors(registrerUserController),
+  loginUserController: catchingErrors(loginUserController),
+};
+
+export default userControllers;

@@ -1,15 +1,28 @@
 export interface UserRegisterDTO {
   name: string;
-  DNI: number;
+  nDni: number;
   email: string;
   birthdate: Date;
   username: string;
   password: string;
 }
 
-export interface UserLoginDTO {
-  email: string;
+export interface UserCredentialDTO {
+  username: string;
   password: string;
+}
+
+export interface UserLoginDTO {
+  login: boolean;
+  user: UserDataLoginDTO;
+}
+
+interface UserDataLoginDTO {
+  id?: number;
+  name?: string;
+  nDni?: number;
+  email?: string;
+  birthdate?: Date;
 }
 
 export interface UserDTO {

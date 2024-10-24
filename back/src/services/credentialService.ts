@@ -1,8 +1,8 @@
-import { Credential } from "../interFaces/CredentialsInterface";
 import bcrypt from "bcrypt";
-
-const credentialsList: Credential[] = [];
-let id: number = 1;
+import { Credential } from "../entities/Credentials.entity";
+import { EntityManager } from "typeorm";
+import { CredentialRepository } from "../repositories/Credential.Repository";
+import { CustomError } from "../utils/customError";
 
 const saltRounds = 10;
 const hashPassword = async (password: string): Promise<string> => {
@@ -16,40 +16,53 @@ const hashPassword = async (password: string): Promise<string> => {
   }
 };
 
-const checkUserExists = (username: string): void => {
-  const credentialFound: Credential | undefined = credentialsList.find(
-    (credential) => credential.username === username
+const checkUserExists = async (username: string): Promise<void> => {
+  const credentialFound: Credential | null = await CredentialRepository.findOne(
+    {
+      where: { username },
+    }
   );
+
   if (credentialFound) {
-    throw new Error(`User ${username} already exists`);
+    throw new CustomError(404, `User ${username} already exists`);
   }
 };
 
 export const getCredentialsService = async (
+  entityManager: EntityManager,
   username: string,
   password: string
-): Promise<number> => {
-  checkUserExists(username);
+): Promise<Credential> => {
+  await checkUserExists(username);
   const passwordHashed = await hashPassword(password);
-  const objetoCredenciales = {
-    id,
+  const objetoCredenciales: Credential = entityManager.create(Credential, {
     username,
     password: passwordHashed,
-  };
+  });
 
-  credentialsList.push(objetoCredenciales);
-  return id++;
+  return await entityManager.save(objetoCredenciales);
 };
 
 export const checkUserCredentials = async (
   username: string,
   password: string
 ): Promise<number | undefined> => {
-  const credentialFound: Credential | undefined = credentialsList.find(
-    (credential) => credential.username === username
+  const credentialFound: Credential | null = await CredentialRepository.findOne(
+    {
+      where: { username },
+    }
   );
-  const passwordEncrypted = await hashPassword(password);
-  return credentialFound?.password === passwordEncrypted
-    ? credentialFound.id
-    : undefined;
+  if (!credentialFound) {
+    throw new Error("User and password don't match");
+  }
+  const passwordMatches = await bcrypt.compare(
+    password,
+    credentialFound.password
+  );
+
+  if (!passwordMatches) {
+    throw new Error("User and password don't match");
+  }
+
+  return credentialFound.id;
 };
