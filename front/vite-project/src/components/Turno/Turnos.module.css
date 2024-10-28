@@ -1,0 +1,55 @@
+.appointmentCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.appointmentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.appointmentHeader h3 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.statusActive {
+  background-color: #f44336;
+
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+
+.statusInactive {
+  background-color: #4caf50;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+
+.appointmentDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.appointmentDetails p {
+  font-weight: bold;
+  color: #666;
+}
+
+.appointmentDetails span {
+  color: #333;
+  font-weight: normal;
+}
