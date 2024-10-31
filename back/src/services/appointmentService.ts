@@ -18,7 +18,6 @@ export const getAppointmentByIdService = async (
   if (!appointmentFound) {
     throw new CustomError(404, `Appointment ${id} not found`);
   }
-
   return appointmentFound;
 };
 
