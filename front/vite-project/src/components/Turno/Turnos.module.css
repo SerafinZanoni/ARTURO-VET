@@ -20,8 +20,7 @@
 }
 
 .statusActive {
-  background-color: #f44336;
-
+  background-color: #4caf50;
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
@@ -30,7 +29,7 @@
 }
 
 .statusInactive {
-  background-color: #4caf50;
+  background-color: #f44336;
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
@@ -52,4 +51,30 @@
 .appointmentDetails span {
   color: #333;
   font-weight: normal;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-left: 35px;
+  margin-top: 10px;
+}
+
+.cancelButton:hover {
+  background-color: #d32f2f;
+}
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  display: none;
+}
+.cancelButton.disabled:hover {
+  background-color: #f44336;
+  cursor: not-allowed;
 }

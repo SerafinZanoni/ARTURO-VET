@@ -1,20 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Turno from "../../components/Turno/Turno";
 import Style from "./MisTurnos.module.css";
-import axios from "axios";
+import { UsersContext } from "../../context/UserContext";
 
 const MisTurnos = () => {
-  const [turnos, setTurnos] = useState([]);
+  const { getUserAppointments, user, userAppointments } =
+    useContext(UsersContext);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/appointments")
-      .then((response) => {
-        setTurnos(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getUserAppointments(user);
   }, []);
 
   return (
@@ -23,8 +17,8 @@ const MisTurnos = () => {
         <h1>Mis turnos</h1>
       </div>
       <div className={Style.containerTurns}>
-        {turnos.length > 0 ? (
-          turnos.map((turno) => (
+        {userAppointments.length > 0 ? (
+          userAppointments.map((turno) => (
             <Turno
               key={turno.id}
               id={turno.id}
