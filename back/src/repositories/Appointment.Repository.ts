@@ -7,32 +7,41 @@ export const AppointmentRepository = AppDataSource.getRepository(
   validateAllowAppointment: function (date: Date, time: string): void {
     const [hour, minute] = time.split(":").map(Number);
 
-    const appointmentDate = new Date(date);
-
-    appointmentDate.setHours(hour, minute, 0);
-    const today = new Date();
-    const difMiliSecnonds = today.getTime() - appointmentDate.getTime();
-    const difHours = difMiliSecnonds / (1000 * 60 * 60);
-
-    if (difHours > 24)
+    // Validar formato de hora
+    if (
+      isNaN(hour) ||
+      isNaN(minute) ||
+      hour < 0 ||
+      hour > 23 ||
+      minute < 0 ||
+      minute > 59
+    ) {
       throw new Error(
-        "Appointment date cannot be more than 24 hours in advance"
+        "Invalid time format. Please provide time in HH:MM format."
       );
+    }
 
-    const appointmentDateArg = new Date(
-      appointmentDate.getTime() - 3 * 60 * 60 * 1000
-    );
-    const nowInArg = new Date(today.getTime() - 3 * 60 * 60 * 1000);
+    // Crear el objeto de fecha de la cita con la hora proporcionada
+    const appointmentDate = new Date(date);
+    appointmentDate.setHours(hour, minute, 0);
 
-    if (appointmentDateArg < nowInArg)
+    const today = new Date();
+
+    // Verificar si la cita es en el pasado
+    if (appointmentDate < today) {
       throw new Error("Appointment date cannot be in the past");
+    }
 
-    const dayOnWeek = appointmentDateArg.getUTCDate();
-    if (dayOnWeek === 5 || dayOnWeek === 6)
-      throw new Error("Appointment date cannot be on weekend");
+    // Verificar si la cita cae en fin de semana
+    const dayOfWeek = appointmentDate.getDay(); // Obtener día de la semana sin ajuste de UTC
+    if (dayOfWeek === 1 || dayOfWeek === 6) {
+      throw new Error("Appointment date cannot be on a weekend");
+    }
 
-    if (hour < 8 || hour > 20)
+    // Verificar si la hora está entre las 8 AM y las 8 PM
+    if (hour < 8 || hour > 20) {
       throw new Error("Appointment time must be between 8am and 8pm");
+    }
   },
 
   validateExistAppointment: async function (
@@ -46,7 +55,7 @@ export const AppointmentRepository = AppDataSource.getRepository(
 
     if (appointmentFound) {
       throw new Error(
-        `Appointment ${time}, ${date} already exists for user ${userId}`
+        `Appointment at ${time} on ${date} already exists for user ${userId}`
       );
     }
   },

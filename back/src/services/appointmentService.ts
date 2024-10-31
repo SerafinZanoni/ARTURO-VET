@@ -44,7 +44,7 @@ export const registerAppointmentService = async (
       id: appointment.userId,
     },
   });
-
+  console.log(newAppointment);
   return await AppointmentRepository.save(newAppointment);
 };
 
