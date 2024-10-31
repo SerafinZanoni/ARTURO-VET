@@ -24,12 +24,13 @@
   margin-right: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   object-fit: cover;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .title {
   font-family: "Nunito", sans-serif;
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -50,10 +51,11 @@
 .navLink {
   text-decoration: none;
   color: #fff;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 6px;
   transition: background-color 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .navLink:hover {
@@ -66,4 +68,80 @@
   color: #0000009d;
 
   padding: 4px 8px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Styles */
+
+/* Tablets */
+@media (max-width: 800px) {
+  .navbarContainer {
+    flex-direction: column;
+    padding: 12px 24px;
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .navLink {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    color: black;
+  }
+  .navLink.active {
+    color: white;
+
+    padding: 4px 8px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .navbarContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 16px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .navbar {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+
+  .navItem {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+  .navLink {
+    font-size: 0.9rem;
+    padding: 6px 8px;
+  }
 }

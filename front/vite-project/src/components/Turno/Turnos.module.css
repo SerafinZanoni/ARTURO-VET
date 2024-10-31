@@ -4,7 +4,8 @@
   padding: 16px;
   margin-bottom: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: #ffffff9b;
+  z-index: 3;
 }
 
 .appointmentHeader {
@@ -62,7 +63,7 @@
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  margin-left: 35px;
+  margin-left: auto;
   margin-top: 10px;
 }
 

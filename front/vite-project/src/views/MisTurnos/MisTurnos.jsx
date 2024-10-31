@@ -14,7 +14,7 @@ const MisTurnos = () => {
   return (
     <div className={Style.container}>
       <div className={Style.containerH1}>
-        <h1>Mis turnos</h1>
+        <h1>My Appointments</h1>
       </div>
       <div className={Style.containerTurns}>
         {userAppointments.length > 0 ? (

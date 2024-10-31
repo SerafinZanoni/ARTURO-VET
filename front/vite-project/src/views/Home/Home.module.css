@@ -3,6 +3,9 @@
   font-size: 50px;
   text-align: center;
   margin-top: 20px;
+  font-size: 5rem;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .container {
   display: flex;

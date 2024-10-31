@@ -62,6 +62,7 @@ export const UserProvider = ({ children }) => {
       ...values,
       userId: user,
     };
+
     await axios.post(
       "http://localhost:3000/appointments/schedule",
       appointmentsValues

@@ -32,7 +32,7 @@ export default function Navbar() {
           alt="logo"
           className={Styles.logo}
         />
-        <h1 className={Styles.title}>Dr Arturo</h1>
+        <h1 className={Styles.title}>Artur & Co. Veterinary Clinic</h1>
       </div>
 
       <nav className={Styles.navbar}>

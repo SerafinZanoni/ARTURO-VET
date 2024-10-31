@@ -56,8 +56,6 @@ function App() {
         </main>
       ) : (
         <>
-          {!isNotFound && <div className={Style.container}></div>}
-
           <main className={Style.main}>
             <Navbar />
             <Routes>
