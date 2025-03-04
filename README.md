@@ -30,7 +30,10 @@
 
 ## 📦 Instalación y Configuración
 
-### **1️⃣ Clonar el repositorio**
-```bash
-git clone https://github.com/tu-usuario/veterinaria.git
-cd veterinaria
+### **Imagenes**
+![Login](public/ArturoVet.png)
+![Home](public/ArturoHome.png)
+![Appointment](public/UntitledAP.png)
+
+
+
