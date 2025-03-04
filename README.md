@@ -31,7 +31,7 @@
 ## 📦 Instalación y Configuración
 
 ### **Imagenes**
-![Login](public/ArturoHome.png)
+![Login](public/ArturoVet.png)
 ![Home](public/ArturoHome.png)
 ![Appointment](public/UntitledAP.png)
 
