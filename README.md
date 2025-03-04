@@ -31,8 +31,8 @@
 ## 📦 Instalación y Configuración
 
 ### **Imagenes**
-![Login](public\ArturoHome.png)
-![Home](public\ArturoHome.png)
+![Login](public/ArturoHome.png)
+![Home](public/ArturoHome.png)
 ![Appointment](public/UntitledAP.png)
 
 
